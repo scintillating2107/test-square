@@ -10,7 +10,10 @@
   <header>
     <div>
       <h1>Test Square</h1>
-      <p>A square that changes colour and moves along a hexagon path.</p>
+      <p>
+        <span class="desk">Drag, scroll or use the arrow keys to move the square. Tap it for a new colour.</span>
+        <span class="touch">Drag the square around the hexagon. Tap it for a new colour.</span>
+      </p>
     </div>
     <button id="themeBtn">Light mode</button>
   </header>
@@ -18,19 +21,24 @@
   <main>
     <section class="stage" id="stage">
       <svg id="track"></svg>
-      <div class="square" id="square"></div>
+      <dl class="keys">
+        <dt><kbd>&larr;</kbd><kbd>&rarr;</kbd></dt><dd>move</dd>
+        <dt><kbd>Shift</kbd>+<kbd>&rarr;</kbd></dt><dd>next corner</dd>
+        <dt><kbd>Space</kbd></dt><dd>new colour</dd>
+        <dt><kbd>Home</kbd></dt><dd>back to top</dd>
+      </dl>
+      <div class="square" id="square" tabindex="0" role="button" aria-label="Square - use arrow keys to move, space for a new colour"></div>
     </section>
 
     <section class="controls">
       <div class="group">
         <h2>Movement</h2>
         <div class="row">
-          <button id="playBtn">Start</button>
           <button id="resetBtn">Reset</button>
-          <button id="dirBtn" class="wide">Clockwise</button>
+          <button id="dirBtn" class="wide">Scroll: clockwise</button>
         </div>
         <div class="row">
-          <label>Speed <input type="range" id="speed" min="1" max="10" value="4"></label>
+          <label>Scroll speed <input type="range" id="speed" min="1" max="10" value="4"></label>
           <label>Hexagon size <input type="range" id="size" min="80" max="200" value="150"></label>
         </div>
       </div>
@@ -47,7 +55,6 @@
         <label class="check"><input type="checkbox" id="spin" checked> Spin while moving</label>
         <label class="check"><input type="checkbox" id="pulse"> Pulse</label>
         <label class="check"><input type="checkbox" id="trail"> Leave a trail</label>
-        <p class="hint">Click the square for a random colour.</p>
       </div>
     </section>
   </main>

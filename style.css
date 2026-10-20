@@ -6,7 +6,6 @@
   --line: #4a4e60;
   --btn: #3a3e50;
   --btn-hover: #4c5168;
-  /* stage is a square that fits the screen and leaves room for the controls */
   --side: min(calc(100vh - 110px), calc(100vw - 400px), 640px);
   --controls: 320px;
   --gap: 20px;
@@ -40,9 +39,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 16px;
-}
-
-body, .stage, .group {
   transition: background 0.3s, color 0.3s;
 }
 
@@ -64,6 +60,7 @@ main {
 .stage, .group {
   background: var(--panel);
   border-radius: 12px;
+  transition: background 0.3s;
 }
 
 .stage {
@@ -72,7 +69,15 @@ main {
   height: var(--side);
   flex-shrink: 0;
   overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: grab;
 }
+
+.stage.dragging, .stage.dragging .square { cursor: grabbing; }
 
 #track {
   position: absolute;
@@ -99,10 +104,12 @@ main {
   width: 50px;
   height: 50px;
   border-radius: 6px;
-  cursor: pointer;
+  cursor: grab;
   z-index: 2;
   transition: background-color 0.5s, box-shadow 0.5s;
 }
+
+.square:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; }
 
 .square.pulse { animation: pulse 1s ease-in-out infinite; }
 
@@ -193,13 +200,47 @@ input[type="color"] {
 
 .swatches span:hover { transform: scale(1.15); }
 .swatches span.active { border-color: var(--text); }
-.hint { font-size: 0.85rem; color: var(--muted); opacity: 0.8; }
 
+.keys {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 5px 10px;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  opacity: 0.85;
+  pointer-events: none;
+}
 
-@media (max-width: 760px) {
+.keys dt { display: flex; gap: 3px; align-items: center; }
+
+kbd {
+  display: inline-block;
+  min-width: 20px;
+  padding: 0 5px;
+  font: 0.72rem/1.5 monospace;
+  text-align: center;
+  color: var(--text);
+  background: var(--btn);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+.touch { display: none; }
+
+@media (hover: none) {
+  .keys, .desk { display: none; }
+  .touch { display: inline; }
+}
+
+@media (max-width: 760px), (max-height: 500px) {
   body { height: auto; overflow: auto; justify-content: flex-start; }
   header { width: 100%; flex-direction: column; gap: 8px; text-align: center; }
   main { width: 100%; flex-direction: column; }
-  .stage { width: 100%; height: 360px; }
+  .stage { width: 100%; height: min(360px, 85vh); }
   .controls { width: 100%; height: auto; overflow: visible; }
 }
