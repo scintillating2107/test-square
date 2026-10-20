@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Square</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Test Square</h1>
+      <p>A square that changes colour and moves along a hexagon path.</p>
+    </div>
+    <button id="themeBtn">Light mode</button>
+  </header>
+
+  <main>
+    <section class="stage" id="stage">
+      <svg id="track"></svg>
+      <div class="square" id="square"></div>
+    </section>
+
+    <section class="controls">
+      <div class="group">
+        <h2>Movement</h2>
+        <div class="row">
+          <button id="playBtn">Start</button>
+          <button id="resetBtn">Reset</button>
+          <button id="dirBtn" class="wide">Clockwise</button>
+        </div>
+        <div class="row">
+          <label>Speed <input type="range" id="speed" min="1" max="10" value="4"></label>
+          <label>Hexagon size <input type="range" id="size" min="80" max="200" value="150"></label>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2>Colour</h2>
+        <div class="swatches" id="swatches"></div>
+        <label class="inline">Pick your own <input type="color" id="picker" value="#e63946"></label>
+        <label class="check"><input type="checkbox" id="rainbow"> Change colour at every corner</label>
+      </div>
+
+      <div class="group">
+        <h2>Animation</h2>
+        <label class="check"><input type="checkbox" id="spin" checked> Spin while moving</label>
+        <label class="check"><input type="checkbox" id="pulse"> Pulse</label>
+        <label class="check"><input type="checkbox" id="trail"> Leave a trail</label>
+        <p class="hint">Click the square for a random colour.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
